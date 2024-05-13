@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'deco.css' %}" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="" class="brand">Brand</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+            <div class="menu" id="menu">
+                <ul class="menu-inner">
+                    <li class="menu-item"><a class="menu-link" href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </div>
+            <span class="search-toggle"> <svg width="30" height="30" viewBox="0 0 48 40"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <mask id="ipTSearch0">
+                        <g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4">
+                            <path fill="#555"
+                                d="M21 38c9.389 0 17-7.611 17-17S30.389 4 21 4S4 11.611 4 21s7.611 17 17 17Z" />
+                            <path stroke-linecap="round"
+                                d="M26.657 14.343A7.975 7.975 0 0 0 21 12a7.975 7.975 0 0 0-5.657 2.343m17.879 18.879l8.485 8.485" />
+                        </g>
+                    </mask>
+                    <path fill="#fff" d="M0 0h48v48H0z" mask="url(#ipTSearch0)" />
+                </svg>
+            </span>
+            <div class="search-block">
+                <form class="search-form">
+                    <span class="search-cancel">
+                        <svg width="35" height="35" viewBox="0 0 26 19" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="#fff">
+                                <path fill-rule="evenodd"
+                                    d="M22 6.426v11.148c0 1.847-1.6 3.015-2.903 2.118L13 15.232V8.768l6.097-4.46C20.399 3.411 22 4.58 22 6.426Z"
+                                    clip-rule="evenodd" opacity=".5" />
+                                <path
+                                    d="M13 7.123v9.754c0 1.616-1.467 2.638-2.661 1.853L2.92 13.853c-1.228-.807-1.228-2.899 0-3.706l7.42-4.877c1.193-.785 2.66.237 2.66 1.853Z" />
+                            </g>
+                        </svg>
+                    </span>
+                    <input type="search" name="search" class="search-input" placeholder="Search here...">
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="moive-container">
+        {% for movie in Alldata %}
+        <a href="/movies/{{movie.title}}" class="allmoives">
+            <div class="poster">
+                <img src="{{movie.image}}" alt="">
+            </div>
+            <div class="about">
+                <h1>{{forloop.counter}}. {{movie.title}}</h1>
+                <p>{{movie.description}}</p>
+            </div>
+            <div class="rating">
+                <div class="r1 rate">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="">
+                    <div class="rating-value">
+                        {% if movie.imdbRating %}
+                        {{movie.imdbRating}}/10
+                        {% else %}
+                        <svg width="42" height="42" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#0011ff" d="M18.65 19.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM17 10c.34 0 .67.03 1 .08V5h-2v3H8V5H6v15h4.68A6.995 6.995 0 0 1 17 10zm-5-5c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z" opacity=".3"/>
+                            <path fill="#0011ff" d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5zm1.65 7.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM18 3h-3.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H6c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h6.11a6.743 6.743 0 0 1-1.42-2H6V5h2v3h8V5h2v5.08c.71.1 1.38.31 2 .6V5c0-1.1-.9-2-2-2zm-6 2c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="r2 rate">
+                    <img src="https://www.rottentomatoes.com/assets/pizza-pie/images/rottentomatoes_logo_40.336d6fe66ff.png"
+                        alt="">
+                    <div class="rating-value">
+                        {% if movie.rottenAudienceRating %}
+                        {{movie.rottenAudienceRating}}%
+                        {% else %}
+                        <svg width="42" height="42" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#0011ff" d="M18.65 19.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM17 10c.34 0 .67.03 1 .08V5h-2v3H8V5H6v15h4.68A6.995 6.995 0 0 1 17 10zm-5-5c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z" opacity=".3"/>
+                            <path fill="#0011ff" d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5zm1.65 7.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM18 3h-3.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H6c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h6.11a6.743 6.743 0 0 1-1.42-2H6V5h2v3h8V5h2v5.08c.71.1 1.38.31 2 .6V5c0-1.1-.9-2-2-2zm-6 2c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="r3 rate">
+                    <img src="https://static.wikia.nocookie.net/logopedia/images/4/47/ETimes.png/revision/latest/scale-to-width-down/280?cb=20210608145949"
+                        alt="">
+                    <div class="rating-value">
+                        {% if movie.timesOfIndiaCriticRating %}
+                        {{movie.timesOfIndiaCriticRating}}/5
+                        {% else %}
+                        <svg width="42" height="42" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#0011ff" d="M18.65 19.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM17 10c.34 0 .67.03 1 .08V5h-2v3H8V5H6v15h4.68A6.995 6.995 0 0 1 17 10zm-5-5c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z" opacity=".3"/>
+                            <path fill="#0011ff" d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5zm1.65 7.35L16.5 17.2V14h1v2.79l1.85 1.85l-.7.71zM18 3h-3.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H6c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h6.11a6.743 6.743 0 0 1-1.42-2H6V5h2v3h8V5h2v5.08c.71.1 1.38.31 2 .6V5c0-1.1-.9-2-2-2zm-6 2c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <script src="{% static 'main.js' %}">
+
+
+    </script>
+</body>
+
+</html>

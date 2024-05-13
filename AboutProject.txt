@@ -1,0 +1,5 @@
+1. Created virtual environment 
+
+Dependencies
+--> Django 4.2.6
+--> Python 3.12
